@@ -25,7 +25,7 @@ public class AmazonTest {
 
     @ValueSource(strings = {"Jeans", "Skirt"})
     @ParameterizedTest(name = "Для поискового запроса {0} должен быть не пустой список карточек")
-    void searchResultShouldNotBeEmpty(String searchQuery) {
+    void searchResultShouldNotBeEmptyTest(String searchQuery) {
         $("#twotabsearchtextbox").setValue(searchQuery).pressEnter();
         $$("[data-component-type=s-search-result]").shouldBe(sizeGreaterThan(0));
     }
@@ -36,7 +36,7 @@ public class AmazonTest {
             "Platinum Elite Business Plus Carry-On Expandable Hardside Spinner, $256.40"})
     @CsvFileSource(resources = "/test_data/productCardShouldBeWithPrice.csv")
     @ParameterizedTest(name = "Для поискового запроса {0} должны быть указаны цена {1} на данный продукт")
-    void productCardShouldBeWithPrice(String searchQuery, String expectedPrice) {
+    void productCardShouldBeWithPriceTest(String searchQuery, String expectedPrice) {
         $("#twotabsearchtextbox").setValue(searchQuery).pressEnter();
         $("[data-component-type=s-search-result]").click();
         $(".a-text-price").shouldHave(text(expectedPrice));
@@ -45,7 +45,7 @@ public class AmazonTest {
     @DisplayName("Проверка смены языка на сайте")
     @EnumSource(Language.class)
     @ParameterizedTest
-    void amazonSiteShouldBeChangeLanguage(Language language) {
+    void amazonSiteShouldBeChangeLanguageTest(Language language) {
         $(".icp-nav-link-inner").click();
         $(byText(language.name())).click();
         $("[aria-labelledby=icp-save-button-announce]").click();
@@ -53,7 +53,7 @@ public class AmazonTest {
 
     }
 
-    static Stream<Arguments> amazonSiteShouldBeDisplayCorrectButtons() {
+    static Stream<Arguments> amazonSiteShouldBeDisplayCorrectButtonsTest() {
         return Stream.of(
                 Arguments.of(
                         Language.DE,
@@ -68,7 +68,7 @@ public class AmazonTest {
     @DisplayName("Проверка смены языка на сайте по меню")
     @MethodSource
     @ParameterizedTest
-    void amazonSiteShouldBeDisplayCorrectButtons(Language language, List<String> expectedButtons) {
+    void amazonSiteShouldBeDisplayCorrectButtonsTest(Language language, List<String> expectedButtons) {
         $(".icp-nav-link-inner").click();
         $(byText(language.name())).click();
         $("[aria-labelledby=icp-save-button-announce]").click();
