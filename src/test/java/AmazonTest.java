@@ -1,12 +1,9 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.SelenideElement;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -37,7 +34,7 @@ public class AmazonTest {
     @CsvSource(value = {
             "Maxlite Air Carry-on Hardside Expandable Spinner,$109.90 ",
             "Platinum Elite Business Plus Carry-On Expandable Hardside Spinner, $256.40"})
-    @CsvFileSource(resources = "/test_data/productCardShouldBeWithPrice.csc")
+    @CsvFileSource(resources = "/test_data/productCardShouldBeWithPrice.csv")
     @ParameterizedTest(name = "Для поискового запроса {0} должны быть указаны цена {1} на данный продукт")
     void productCardShouldBeWithPrice(String searchQuery, String expectedPrice) {
         $("#twotabsearchtextbox").setValue(searchQuery).pressEnter();
@@ -65,7 +62,7 @@ public class AmazonTest {
                         Language.EN,
                         List.of("Today's Deals", "Customer Service", "Registry", "Gift Cards", "Sell")
                 )
-                );
+        );
     }
 
     @DisplayName("Проверка смены языка на сайте по меню")
